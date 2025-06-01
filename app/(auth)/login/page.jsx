@@ -15,7 +15,7 @@ export default function page() {
   const router = useRouter();
   useEffect(() => {
     if (user) {
-      router.push('/');
+      router.push('/dashboard');
     }
   }, [user]);
   return (
