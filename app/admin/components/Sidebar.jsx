@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   LogOut,
   PackageOpen,
+  Settings,
   Star,
   Tags,
   Truck,
@@ -14,6 +15,9 @@ import Link from 'next/link';
 import React, { use } from 'react';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/app/lib/firebase';
+import { toast } from 'react-hot-toast';
 
 export default function Sidebar() {
   const menuList = [
@@ -52,9 +56,14 @@ export default function Sidebar() {
       link: '/admin/collections',
       icon: <Boxes className="h-5 w-5" />,
     },
+    {
+      name: 'Settings',
+      link: '/admin/settings',
+      icon: <Settings className="h-5 w-5" />,
+    },
   ];
   return (
-    <section className="flex flex-col gap-10 bg-gray-100 border-r px-5 py-3 h-screen overflow-hidden md:w-64">
+    <section className="flex flex-col gap-10 bg-white border-r px-5 py-3 h-screen overflow-hidden md:w-64">
       <div className="flex justify-center">
         <Image
           className="mt-5"
@@ -70,7 +79,20 @@ export default function Sidebar() {
         ))}
       </ul>
 
-      <Button className={'cursor-pointer hover:bg-red-700'}>
+      <Button
+        onClick={async () => {
+          try {
+            await toast.promise(signOut(auth), {
+              error: (e) => e.message,
+              loading: 'Logging out...',
+              success: 'Logged out successfully',
+            });
+          } catch (error) {
+            toast.error('Logout failed');
+          }
+        }}
+        className={'cursor-pointer hover:bg-red-700'}
+      >
         Logout <LogOut />
       </Button>
     </section>

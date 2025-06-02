@@ -40,7 +40,7 @@ export default function Header() {
         })}
       </div>
       <Link href={'/login'}>
-        <button className="bg-black p-5 py-2 font-bold rounded-full text-white">
+        <button className="bg-black p-5 py-2 font-bold rounded-full text-white cursor-pointer">
           Login
         </button>
       </Link>

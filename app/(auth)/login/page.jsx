@@ -27,6 +27,7 @@ export default function page() {
               className="m-2 hover:cursor-pointer"
               src="/logo.png"
               alt="Logo"
+              onClick={() => router.push('/')}
               width={120}
               height={40}
             />
